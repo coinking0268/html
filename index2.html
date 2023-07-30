@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<!-- 文字コードの指定 -->
+<meta charset="UTF-8">
+
+<title>Jspreadsheet Example</title>
+
+</head>
+<body>
+  <script src="https://bossanova.uk/jspreadsheet/v4/jexcel.js"></script>
+  <script src="https://jsuites.net/v4/jsuites.js"></script>
+  <link rel="stylesheet" href="https://jsuites.net/v4/jsuites.css" type="text/css">
+  <link rel="stylesheet" href="https://bossanova.uk/jspreadsheet/v4/jexcel.css" type="text/css">
+
+
+  
+  <table id="myTable">
+    <tr>
+      <td>行1のセル1</td>
+      <td>行1のセル2</td>
+    </tr>
+    <tr>
+      <td>行2のセル1</td>
+      <td>行2のセル2</td>
+    </tr>
+    <tr>
+      <td>行3のセル1</td>
+      <td>行3のセル2</td>
+    </tr>
+  </table>
+  
+  <script>
+    // 新しい行を作成
+    var newRow = document.createElement("tr");
+    var cell1 = document.createElement("td");
+    var cell2 = document.createElement("td");
+    cell1.innerHTML = "新しい行のセル1";
+    cell2.innerHTML = "新しい行のセル2";
+    newRow.appendChild(cell1);
+    newRow.appendChild(cell2);
+  
+    // テーブルのヘッダー行を取得
+    var headerRow = document.getElementById("myTable").rows[0];
+
+    // 新しい行をテーブルの先頭に追加
+    headerRow.parentNode.insertBefore(newRow, headerRow);  </script>
+  
+  
+
+<div id="mytable"></div>
+<script>
+
+// const myGlobalVar = "global.myGlobalVar"; //postで得た文字列を格納したグローバル変数を呼び出す
+const post_data = "変換前"
+const myTable = jspreadsheet(document.getElementById('mytable'), {
+  data: [
+    ['2022/10/24', post_data, 420],
+    ['2022/10/26', '外食費', 1300]
+  ],
+  columns: [
+    { type: 'calendar', title: '日付', width: 120, options: { format: 'YYYY/MM/DD' } },
+    { type: 'text', title: '項目', width: 300 },
+    { type: 'numeric', title: '出金', width: 200, mask:'#,##' },
+  ]
+});
+
+const newRowData = ['2022/11/01', '交通費', 200]; 
+myTable.addRow(newRowData); //addRowは行の先頭に追加insertRowで行を最後に追加　
+// jspreadsheet(document.getElementById('mytable')).setValue(2, 2, receivedValue);   //これはこのコードの問題は、jspreadsheet()関数を複数回呼び出していること。2番目の呼び出しでsetValue()を使用しても、最初に作成されたインスタンスには影響を与えません。
+//その代わりに、myTable変数を使用してテーブルの値を変更する必要があります。
+  //  myTable.setValue(0, 1, receivedValue); なぜか書き換わらない
+
+</script>
+</body>
+</html>
